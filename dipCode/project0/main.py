@@ -99,14 +99,16 @@ def image_io(folder_path: str) -> None:
         if image.ndim == 3:
             # Only convert to grayscale if the image actually has 3 dimensions
             print(f"Convert file {file} to grayscale using weights: {grayscale_weights}")
-            images.append(np.dot(image[..., :3], grayscale_weights))
-            # TODO is it intended to save each converted image, or just the image grid?
+            gray_img = np.dot(image[..., :3], grayscale_weights)
+            images.append(gray_img)
         else:
             print(f"File: {file} already in grayscale")
             images.append(image)
 
+
     # Display in a grid using plt.subplots
     fig, axs = plt.subplots(2, 2)
+    # Specify the color map is gray, otherwise it seems matplotlib interprets the data as RGB
     axs[0, 0].imshow(images[0], cmap='gray')
     axs[0, 1].imshow(images[1], cmap='gray')
     axs[1, 0].imshow(images[2], cmap='gray')
